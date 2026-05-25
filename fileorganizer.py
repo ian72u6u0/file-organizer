@@ -34,7 +34,6 @@ for file_path in list(downloads_dir.rglob("*")):
                     break
                     
                 try:
-                    # Stability Check: Wait until file stops changing size
                     initial_size = file_path.stat().st_size
                     time.sleep(2)
                     current_size = file_path.stat().st_size

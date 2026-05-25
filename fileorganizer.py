@@ -1,5 +1,6 @@
 from pathlib import Path
 import shutil
+import time
 
 archives_dir = Path.home() / "Desktop" / "Archive"
 images_dir = Path.home() / "Desktop" / "Images"
@@ -9,7 +10,7 @@ downloads_dir = Path.home() / "Downloads"
 Rules = {
     "Image": [".png",".jpg",".jpeg",".gif",".svg",".webp",".tiff",".tif",".psd"],
     "Documents": [".pdf", ".txt", ".rtf", ".odt", ".md",".doc", ".docx", ".docm", ".dotx",".xls", ".xlsx", ".xlsm", ".csv", ".ods"],
-    "Archives": [".zip", ".tar", ".gz", ".rar"]
+    "Archives": [".zip", ".tar", ".gz"]
 }
 
 folder_map = {
@@ -33,6 +34,15 @@ for file_path in list(downloads_dir.rglob("*")):
                     break
                     
                 try:
+                    # Stability Check: Wait until file stops changing size
+                    initial_size = file_path.stat().st_size
+                    time.sleep(2)
+                    current_size = file_path.stat().st_size
+                    
+                    if initial_size != current_size:
+                        print(f"Skipped (Still copying/downloading): {file_path.name}")
+                        break
+                        
                     shutil.move(str(file_path), str(dest_dir))
                     print(f"Moved to {category}: {file_path.name}")
                 except Exception:

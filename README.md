@@ -2,6 +2,9 @@
 
 A lightweight Python script that automatically categorizes and sorts files from your `Downloads` folder into organized directories on your `Desktop`.
 
+> [!WARNING]
+> **CRITICAL WARNING:** Running this script physically moves your files. Once the process completes, **you cannot automatically undo this action or return the files to their original directories.** Make sure you review the file rules before executing.
+
 ## Requirements
 * **Python**: Version 3.6 or higher.
 * **Operating System**: Windows, macOS, or Linux.
